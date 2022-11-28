@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Time } from './Time';
+import { useNavigate } from 'react-router-dom';
 const Timer = () => {
+    const navigate = useNavigate();
     const [seconds, setSeconds] = useState(0);
     const [timerId, setTimerId] = useState(0);
     const handleStartTimer = () => {
@@ -24,6 +26,9 @@ const Timer = () => {
         }
     }, [timerId])
     useEffect(() => {
+        if (seconds === 8) {
+            navigate("/hooks")
+        }
         if (seconds === 10){
             handleStopTimer();
             setSeconds(0);
