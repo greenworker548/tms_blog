@@ -1,0 +1,56 @@
+.header {
+  .header__body {
+    max-width: 100%;
+    height: 80px;
+    background-color: #2231AA;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .header__burger {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .header__btn {
+        border-right: 1px solid #5360CD;
+      }
+
+      svg {
+        fill: #fff;
+      }
+    }
+
+    .header__btn {
+      width: 84px;
+      height: 100%;
+      margin: 0;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      border-left: 1px solid #5360CD;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #2737cf;
+      }
+    }
+
+    .header__navbar {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .btn .primary {
+        margin: 0;
+      }
+
+      svg {
+        fill: #fff;
+      }
+    }
+  }
+}
