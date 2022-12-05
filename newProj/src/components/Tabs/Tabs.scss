@@ -28,6 +28,10 @@
     }
   }
 
+  .btn__active {
+    border-bottom: '1px solid green';
+  }
+
   &--dark {
       .tabs__btn {
       color:#fff;
