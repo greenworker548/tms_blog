@@ -11,6 +11,7 @@ export interface IPostsStore {
     posts: IPost[],
     favorites: number[],
     countTotal: number,
+    searchValue: string,
 }
 
 export interface ISettingsStore {

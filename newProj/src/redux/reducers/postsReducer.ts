@@ -1,4 +1,4 @@
-import { SET_COUNT_TOTAL } from '../actionTypes/postsActionTypes';
+import { SET_COUNT_TOTAL, SET_SEARCH_VALUE } from '../actionTypes/postsActionTypes';
 import { ADD_FAVORITE, REMOVE_FAVORITE } from '../actionTypes/postsActionTypes';
 
 import { IPostsStore } from '../types';
@@ -8,6 +8,7 @@ const initialState = {
     posts: [],
     favorites: [],
     countTotal: 0,
+    searchValue: '',
 }
 
 const postsReducer = (state: IPostsStore = initialState , action: any) => {
@@ -38,6 +39,13 @@ const postsReducer = (state: IPostsStore = initialState , action: any) => {
             return ({
                 ...state,
                 favorites: state.favorites.filter((el) => el !== id),
+            })
+        }
+        case SET_SEARCH_VALUE: {
+            const { value } = action;
+            return ({
+                ...state,
+                searchValue: value,
             })
         }
         default: return state;
