@@ -6,12 +6,14 @@ import { all } from 'redux-saga/effects'
 import { postsReducer } from './reducers/postsReducer';
 import { settingsReducer } from './reducers/settingsReducer';
 import { watcherPosts } from './actionCreators/postsActionCreators';
+import { watcherUser } from './actionCreators/userActionCreators';
 
 const sagaMiddleWare = createSagaMiddleware();
 
 function* rootSaga(){
     yield all([
         watcherPosts(),
+        watcherUser(),
     ])
 } 
 

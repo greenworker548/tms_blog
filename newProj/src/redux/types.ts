@@ -24,3 +24,10 @@ export interface IStore {
     posts: IPostsStore,
     settings: ISettingsStore,
 }
+
+export interface IUser {
+    id?: number,
+    email: string,
+    username?: string,
+    password: string
+  }

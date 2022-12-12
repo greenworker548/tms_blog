@@ -13,6 +13,7 @@ import { NewPass } from './components/pages/NewPass'
 import { Success } from './components/pages/Success'
 import { BurgerMenu } from './components/BurgerMenu/BurgerMenu'
 import './App.scss'
+import { Activation } from './components/Activation/Activation'
 
 function App () {
     //Состояние темы приложения
@@ -41,6 +42,9 @@ function App () {
                             <Route path='reset_pass' element={<ResetPass/>} />
                             <Route path='new_pass' element={<NewPass/>} />
                             <Route path='success' element={<Success/>} />
+                            <Route path='activate'>
+                                <Route path='*' element={<Activation />} />
+                            </Route>
                         </Route>
                     </Routes>
                     <Footer/>
