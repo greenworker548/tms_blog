@@ -21,7 +21,7 @@ function* rootSaga(){
 const rootReducer = combineReducers({
     posts: postsReducer,
     settings: settingsReducer,
-    user: userReducer,
+    users: userReducer,
 })
 
 export default createStore(rootReducer, applyMiddleware(sagaMiddleWare));

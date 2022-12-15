@@ -27,7 +27,7 @@ export interface IUserStore {
 export interface IStore {
     posts: IPostsStore,
     settings: ISettingsStore,
-    user: IUserStore,
+    users: IUserStore,
 }
 
 export interface IUser {

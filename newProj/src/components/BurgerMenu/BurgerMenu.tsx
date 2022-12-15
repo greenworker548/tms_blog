@@ -16,7 +16,7 @@ import './BurgerMenu.scss'
 export const BurgerMenu = () => {
     const {theme, toggleTheme} = useContext(ThemeContext);
 
-    const user = useSelector((state: IStore) => state.user.user )
+    const user = useSelector((state: IStore) => state.users.user )
 
     // //Забираю из API массив инициалов ФИО
     // const arrLetters = userData.map(({ firthname, lastname }) => `${firthname[0]}${lastname[0]}`)
