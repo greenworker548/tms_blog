@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
+
+import { signin } from '../../../redux/actionCreators/userActionCreators'
 
 import { Button } from '../../Button/Button'
 import { Input } from '../../Input/Input'
 import './FormSignIn.scss'
 
 export const FormSignIn = () => {
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)
     }
@@ -23,6 +28,10 @@ export const FormSignIn = () => {
         if (password.length < 0) {
             setError(!error)
         }
+        dispatch(signin({
+            email: event.target[1].value,
+            password: event.target[3].value,
+        }, navigate))
     }
 
     return (

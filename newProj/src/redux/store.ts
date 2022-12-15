@@ -7,6 +7,7 @@ import { postsReducer } from './reducers/postsReducer';
 import { settingsReducer } from './reducers/settingsReducer';
 import { watcherPosts } from './actionCreators/postsActionCreators';
 import { watcherUser } from './actionCreators/userActionCreators';
+import { userReducer } from './reducers/usersReducer';
 
 const sagaMiddleWare = createSagaMiddleware();
 
@@ -20,6 +21,7 @@ function* rootSaga(){
 const rootReducer = combineReducers({
     posts: postsReducer,
     settings: settingsReducer,
+    user: userReducer,
 })
 
 export default createStore(rootReducer, applyMiddleware(sagaMiddleWare));

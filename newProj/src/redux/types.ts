@@ -20,9 +20,14 @@ export interface ISettingsStore {
     rowsPerPage: number,
 }
 
+export interface IUserStore {
+    user: IUser
+}
+
 export interface IStore {
     posts: IPostsStore,
     settings: ISettingsStore,
+    user: IUserStore,
 }
 
 export interface IUser {
@@ -30,4 +35,9 @@ export interface IUser {
     email: string,
     username?: string,
     password: string
+  }
+
+ export interface JwtResponse {
+    access: string,
+    refresh: string
   }
