@@ -12,6 +12,10 @@ export interface IPostsStore {
     favorites: number[],
     countTotal: number,
     searchValue: string,
+    newPostTitle?: string,
+    newPostText?: string,
+    newPostLesson?: number,
+    newPostImage?: any,
 }
 
 export interface ISettingsStore {
@@ -40,4 +44,10 @@ export interface IUser {
  export interface JwtResponse {
     access: string,
     refresh: string
+  }
+
+ export interface FileLoaderType {
+    image: any,
+    onChange: Function,
+    onRemove: Function
   }

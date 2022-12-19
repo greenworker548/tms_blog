@@ -1,4 +1,4 @@
-import { SET_USER } from '../actionTypes/userActionTypes';
+import { LOG_OUT, SET_USER } from './../actionTypes/userActionTypes';
 
 const initial_state = {
     user: null,
@@ -12,6 +12,12 @@ const userReducer = (state = initial_state, action: any) => {
             return ({
                 ...state,
                 user,
+            })
+        }
+        case LOG_OUT: {
+            return ({
+                ...state,
+                user: null,
             })
         }
         default: return state;

@@ -1,20 +1,24 @@
 import { useContext } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { IStore } from '../../redux/types'
 import { ThemeContext } from '../../contexts/contexts'
 
 import { IconDarkTheme } from '../Icon/IconDarkTheme'
 import { IconLightTheme } from '../Icon/IconLightTheme'
+import { logOut } from '../../redux/actionCreators/userActionCreators'
 
 import { userData } from './UserData'
 import './BurgerMenu.scss'
 
 
 
-export const BurgerMenu = () => {
+
+export const BurgerMenu = ({ setMenu }: { setMenu: Function}) => {
     const {theme, toggleTheme} = useContext(ThemeContext);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const user = useSelector((state: IStore) => state.users.user )
 
@@ -22,6 +26,14 @@ export const BurgerMenu = () => {
     // const arrLetters = userData.map(({ firthname, lastname }) => `${firthname[0]}${lastname[0]}`)
     // //Забираю из API массив строк ФИО
     // const arrStrings = userData.map(({ firthname, lastname }) => `${firthname} ${lastname}`)
+
+    const handleLogOut = () => {
+        dispatch(logOut());
+        localStorage.removeItem('jwtAccess');
+        localStorage.removeItem('jwtRefresh');
+        setMenu(false);
+        navigate('/sign_in');  
+    }
 
     return (
         <div className={`burger-menu burger-menu--${theme}`}>
@@ -50,7 +62,13 @@ export const BurgerMenu = () => {
                     </div>
                 </div>
                 <div className='burger-menu__link'>
-                    <div><NavLink to='/sign_in' style={{textDecoration: 'none'}}>Log Out</NavLink></div>
+                {user &&
+                    <div>
+                        <button style={{textDecoration: 'none'}} onClick={handleLogOut}>
+                            Log Out
+                        </button>
+                    </div>
+                }
                 </div>
             </div>
         </div>

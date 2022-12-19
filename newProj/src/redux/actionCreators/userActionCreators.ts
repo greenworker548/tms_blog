@@ -1,13 +1,21 @@
 
 import { takeEvery, put } from 'redux-saga/effects';
 
-import { ACTIVATION, SIGN_UP, SIGN_IN, SET_USER } from '../actionTypes/userActionTypes';
+import { ACTIVATION, SIGN_UP, SIGN_IN, SET_USER, LOG_OUT, GET_USER } from '../actionTypes/userActionTypes';
 
 import { IUser, JwtResponse } from '../types';
 
 const setUser = (user: IUser) => ({
   type: SET_USER,
   user,
+})
+
+const getUser = () => ({
+  type: GET_USER,
+})
+
+const logOut = () => ({
+  type: LOG_OUT,
 })
 
 const signup = (userInfo: IUser) => ({
@@ -27,6 +35,36 @@ const activation = (activationInfo: any, navigate: Function) => ({
     navigate,
 });
 
+export function* getToken(){
+  const token = localStorage.getItem('jwtAccess');
+  if (token !== 'undefined') {
+    const respVerify: Response = yield fetch('https://studapi.teachmeskills.by/auth/jwt/verify/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ token }),
+    });
+    if (respVerify.status === 200) {
+      return token
+    } else {
+      const refresh = localStorage.getItem('jwtRefresh');
+      const respRefresh: Response = yield fetch('https://studapi.teachmeskills.by/auth/jwt/refresh/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ refresh }),
+    });
+    const data: JwtResponse = yield respRefresh.json();
+    const { access } = data;
+    localStorage.setItem('jwtAccess', access);
+    return access;
+    }
+  }
+  return ''
+}
+
 // saledek848@lubde.com
 // Duda_hello_test
 function* fetchSignUp(action: any) {
@@ -43,16 +81,17 @@ function* fetchSignUp(action: any) {
 }
 
 function* fetchUserInfo(){
-  const token: string = localStorage.getItem('jwtAccess') || '';
-  const data: Response = yield fetch('https://studapi.teachmeskills.by/auth/users/me/', {
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      'Authorization': `Bearer ${token}`,
-    },
-  });
-  const user: IUser = yield data.json();
-  yield put(setUser(user));
-
+  const token: string = yield getToken();
+  if (token) {
+    const data: Response = yield fetch('https://studapi.teachmeskills.by/auth/users/me/', {
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    const user: IUser = yield data.json();
+    yield put(setUser(user));
+  }
 }
 
 function* fetchSignIn(action: any) {
@@ -96,7 +135,8 @@ function* activateUser(action: any) {
 function* watcherUser() {
     yield takeEvery(SIGN_UP, fetchSignUp);
     yield takeEvery(ACTIVATION, activateUser);
-    yield takeEvery(SIGN_IN, fetchSignIn)
+    yield takeEvery(SIGN_IN, fetchSignIn);
+    yield takeEvery(GET_USER, fetchUserInfo);
 }
 
 export {
@@ -104,4 +144,6 @@ export {
     signup,
     activation,
     signin,
+    logOut,
+    getUser,
 }
