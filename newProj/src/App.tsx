@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { Header } from './components/Header/Header'
@@ -14,8 +15,11 @@ import { Success } from './components/pages/Success'
 import { BurgerMenu } from './components/BurgerMenu/BurgerMenu'
 import './App.scss'
 import { Activation } from './components/Activation/Activation'
+import { getUser } from './redux/actionCreators/userActionCreators'
+// import { AddPost } from './components/AddPost/AddPost'
 
 function App () {
+    const dispatch = useDispatch();
     //Состояние темы приложения
     const [theme, setTheme] = useState(THEMES.light)
     const toggleTheme = () => {
@@ -28,12 +32,16 @@ function App () {
         setMenu(!menu)
     }
 
+    useEffect(() => {
+        dispatch(getUser())
+    }, [])
+
     return (
         <div className={`App App--${theme}`}>
             <ThemeContext.Provider value={{ theme, toggleTheme }}>
                 <BrowserRouter>
                     <Header toggleMenu={toggleMenu} menu={menu}/>
-                    {menu && <BurgerMenu />}
+                    {menu && <BurgerMenu setMenu={setMenu}/>}
                     <Routes>
                         <Route path='/'>
                             <Route index element={<AllCards/>} />
@@ -42,6 +50,7 @@ function App () {
                             <Route path='reset_pass' element={<ResetPass/>} />
                             <Route path='new_pass' element={<NewPass/>} />
                             <Route path='success' element={<Success/>} />
+                            {/* <Route path='add_post' element={<AddPost />} /> */}
                             <Route path='activate'>
                                 <Route path='*' element={<Activation />} />
                             </Route>
