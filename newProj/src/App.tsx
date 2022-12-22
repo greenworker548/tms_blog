@@ -16,6 +16,7 @@ import { BurgerMenu } from './components/BurgerMenu/BurgerMenu'
 import './App.scss'
 import { Activation } from './components/Activation/Activation'
 import { getUser } from './redux/actionCreators/userActionCreators'
+import { FormCreatePost } from './components/Forms/FormCreatePost/FormCreatePost'
 // import { AddPost } from './components/AddPost/AddPost'
 
 function App () {
@@ -50,7 +51,7 @@ function App () {
                             <Route path='reset_pass' element={<ResetPass/>} />
                             <Route path='new_pass' element={<NewPass/>} />
                             <Route path='success' element={<Success/>} />
-                            {/* <Route path='add_post' element={<AddPost />} /> */}
+                            <Route path='add_post' element={<FormCreatePost />} />
                             <Route path='activate'>
                                 <Route path='*' element={<Activation />} />
                             </Route>

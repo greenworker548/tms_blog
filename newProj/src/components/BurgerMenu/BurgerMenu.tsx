@@ -22,11 +22,6 @@ export const BurgerMenu = ({ setMenu }: { setMenu: Function}) => {
 
     const user = useSelector((state: IStore) => state.users.user )
 
-    // //Забираю из API массив инициалов ФИО
-    // const arrLetters = userData.map(({ firthname, lastname }) => `${firthname[0]}${lastname[0]}`)
-    // //Забираю из API массив строк ФИО
-    // const arrStrings = userData.map(({ firthname, lastname }) => `${firthname} ${lastname}`)
-
     const handleLogOut = () => {
         dispatch(logOut());
         localStorage.removeItem('jwtAccess');
@@ -48,7 +43,7 @@ export const BurgerMenu = ({ setMenu }: { setMenu: Function}) => {
                     <NavLink to='/' style={{textDecoration: 'none'}}>Home</NavLink>
                 </div>
                 <div className='burger-menu__link'>
-                    <NavLink to='/sign_in' style={{textDecoration: 'none'}}>Add post</NavLink>
+                    <NavLink to='/add_post' style={{textDecoration: 'none'}}>Add post</NavLink>
                 </div>
                 <span></span>
             </div>
